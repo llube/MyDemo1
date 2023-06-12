@@ -28,8 +28,8 @@
             console.log('aa')
             const videoEle = document.getElementById("myVideo")
             const myCav = document.getElementById("myCanvas")
-            myCav.width = 400
-            myCav.height = 400
+            myCav.width = 340
+            myCav.height = 228
             const context = myCav.getContext('2d')
             context.drawImage(videoEle, 0, 0, 400, 400)
             const dataUrl =  myCav.toDataURL()
@@ -37,7 +37,9 @@
             console.log(base64ToFile(dataUrl, 'test'))
         })
          navigator.mediaDevices.getUserMedia({video: {
-            facingMode: 'environment'
+            facingMode: 'environment',
+             width: 1280, 
+             height: 720
          }}).then(stream => {
              console.log(stream)
              const videoEle = document.getElementById("myVideo")
