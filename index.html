@@ -1,1 +1,60 @@
-today is my learn git first day
+<!--
+ * @Author: lilu
+ * @Date: 2023-02-16 20:23:16
+ * @LastEditors: lilu
+ * @LastEditTime: 2023-02-16 20:50:05
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    video{
+        width: 400px;
+        height: 400px;
+    }
+</style>
+<body>
+    <video id="myVideo" autoplay></video>
+    <canvas id="myCanvas"></canvas>
+    <button id="myButton">Capture</button>
+
+    <script type="text/javascript">
+        document.getElementById("myButton").addEventListener("click", () => {
+            console.log('aa')
+            const videoEle = document.getElementById("myVideo")
+            const myCav = document.getElementById("myCanvas")
+            myCav.width = 400
+            myCav.height = 400
+            const context = myCav.getContext('2d')
+            context.drawImage(videoEle, 0, 0, 400, 400)
+            const dataUrl =  myCav.toDataURL()
+            // console.log('base 64', dataUrl)
+            console.log(base64ToFile(dataUrl, 'test'))
+        })
+         navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
+             console.log(stream)
+             const videoEle = document.getElementById("myVideo")
+             console.log(videoEle)
+             videoEle.srcObject  = stream
+         })
+
+         function base64ToFile(base64, fileName) {
+            let arr = base64.split(',');
+            let mime = arr[0].match(/:(.*?);/)[1];
+            let bstr = atob(arr[1]);
+            let n = bstr.length;
+            let u8arr = new Uint8Array(n);
+
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], fileName, {type: mime});
+        }
+    </script>
+</body>
+</html>
