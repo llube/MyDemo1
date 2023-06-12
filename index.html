@@ -48,11 +48,9 @@
             myCav.style.display = 'none'
         })
          navigator.mediaDevices.getUserMedia({video: {
-            facingMode: 'environment',
-//              width: 1280, 
-//              height: 720
-             width: 720, 
-             height: 1280
+            width:1920,
+            height:1080,
+            facingMode: {ideal:"environment"},
          }}).then(stream => {
              console.log(stream)
              const videoEle = document.getElementById("myVideo")
