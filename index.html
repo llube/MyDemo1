@@ -2,7 +2,7 @@
  * @Author: lilu
  * @Date: 2023-02-16 20:23:16
  * @LastEditors: lilu
- * @LastEditTime: 2023-02-16 20:50:05
+ * @LastEditTime: 2023-06-12 21:47:34
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -14,27 +14,38 @@
 </head>
 <style>
     video{
-        width: 340px;
-        height: 228px;
+        width: 100%;
+    }
+    #myCanvas {
+        display: none;
     }
 </style>
 <body>
     <video id="myVideo" autoplay></video>
     <canvas id="myCanvas"></canvas>
     <button id="myButton">Capture</button>
+    <button id="againButton">Capture Again</button>
 
     <script type="text/javascript">
         document.getElementById("myButton").addEventListener("click", () => {
             console.log('aa')
             const videoEle = document.getElementById("myVideo")
             const myCav = document.getElementById("myCanvas")
-            myCav.width = 340
-            myCav.height = 228
+            myCav.width = videoEle.clientWidth
+            myCav.height = videoEle.clientHeight
+            myCav.style.display = 'block'
             const context = myCav.getContext('2d')
-            context.drawImage(videoEle, 0, 0, 400, 400)
+            context.drawImage(videoEle, 0, 0, videoEle.clientWidth, videoEle.clientHeight)
             const dataUrl =  myCav.toDataURL()
             // console.log('base 64', dataUrl)
             console.log(base64ToFile(dataUrl, 'test'))
+        })
+
+        document.getElementById("againButton").addEventListener("click", () => {
+            const myCav = document.getElementById("myCanvas")
+            const context = myCav.getContext('2d')
+            context.clearRect(0, 0, myCav.width, myCav.height)
+            myCav.style.display = 'none'
         })
          navigator.mediaDevices.getUserMedia({video: {
             facingMode: 'environment',
