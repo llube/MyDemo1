@@ -36,7 +36,9 @@
             // console.log('base 64', dataUrl)
             console.log(base64ToFile(dataUrl, 'test'))
         })
-         navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
+         navigator.mediaDevices.getUserMedia({video: {
+            facingMode: 'environment'
+         }}).then(stream => {
              console.log(stream)
              const videoEle = document.getElementById("myVideo")
              console.log(videoEle)
