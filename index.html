@@ -14,7 +14,7 @@
 </head>
 <style>
     video{
-        width: 100%;
+        width: 400px;
         height: 300px;
         transform: scale(1);
     }
@@ -50,8 +50,8 @@
             myCav.style.display = 'none'
         })
          navigator.mediaDevices.getUserMedia({video: {
-            width:1920,
-            height:1080,
+            width:640,
+            height:480,
             facingMode: {ideal:"environment"},
          }}).then(stream => {
              console.log(stream)
