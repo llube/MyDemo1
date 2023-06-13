@@ -2,7 +2,7 @@
  * @Author: lilu
  * @Date: 2023-02-16 20:23:16
  * @LastEditors: lilu
- * @LastEditTime: 2023-06-13 14:47:03
+ * @LastEditTime: 2023-06-13 22:08:48
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -47,7 +47,7 @@
             myCav.height = videoEle.clientHeight
             myCav.style.display = 'block'
             const context = myCav.getContext('2d')
-            context.drawImage(videoEle, 0, 0, videoEle.clientWidth, videoEle.clientHeight)
+            context.drawImage(videoEle, 0, 0, videoEle.videoWidth, videoEle.videoHeight)
             const dataUrl =  myCav.toDataURL()
             // console.log('base 64', dataUrl)
             console.log(base64ToFile(dataUrl, 'test'))
