@@ -34,7 +34,7 @@
     }
     #myCanvas {
         display: none;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     #myButton{
@@ -60,7 +60,7 @@
             myCav.height = videoEle.clientHeight
             myCav.style.display = 'block'
             const context = myCav.getContext('2d')
-            context.drawImage(videoEle, 0, 0, 300, 225)
+            context.drawImage(videoEle, 0, 0, videoEle.videoWidth, videoEle.videoHeight)
             const dataUrl =  myCav.toDataURL()
             // console.log('base 64', dataUrl)
             // console.log(base64ToFile(dataUrl, 'test'))
