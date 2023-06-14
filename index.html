@@ -60,7 +60,9 @@
             myCav.height = videoEle.clientHeight
             myCav.style.display = 'block'
             const context = myCav.getContext('2d')
-            context.drawImage(videoEle, 0, 0, videoEle.videoWidth, videoEle.videoHeight)
+            const dw = videoEle.videoWidth / videoEle.clientWidth
+            const dh = videoEle.videoHeight / videoEle.clientHeight
+            context.drawImage(videoEle, 0, (videoEle.videoHeight - videoEle.clientHeight * 1 / dw )/2, videoEle.videoWidth, videoEle.clientHeight * 1 / dw)
             const dataUrl =  myCav.toDataURL()
             // console.log('base 64', dataUrl)
             // console.log(base64ToFile(dataUrl, 'test'))
