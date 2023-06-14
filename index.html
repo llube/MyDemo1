@@ -77,8 +77,6 @@
             myCav.style.display = 'none'
         })
          navigator.mediaDevices.getUserMedia({video: {
-            width:640,
-            height:480,
             facingMode: {ideal:"environment"},
          }}).then(stream => {
              console.log(stream)
