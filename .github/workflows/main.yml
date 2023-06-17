@@ -1,1 +1,11 @@
-
+name: MyCI
+on:
+  push:
+    branches:
+    - master
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: echo hello
