@@ -2,7 +2,7 @@
  * @Author: lilu
  * @Date: 2023-02-16 20:23:16
  * @LastEditors: lilu
- * @LastEditTime: 2023-06-13 22:08:48
+ * @LastEditTime: 2023-08-04 10:20:32
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -16,27 +16,40 @@
     body {
         width: 100%;
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     .videoWrapper {
-        width: 100%;
+        width: 300px;
+        height: 225px;
+        margin-bottom: 30px;
+        overflow: hidden;
     }
     video{
         width: 100%;
-        height: 320px;
-        border: 1px solid red;
+        border: 1px solid #dedede;
         transform: scale(1);
     }
     #myCanvas {
         display: none;
+        margin-bottom: 30px;
+    }
+
+    #myButton{
+        margin-bottom: 20px;
     }
 </style>
 <body>
     <div class="videoWrapper">
-        <video id="myVideo" autoplay controls></video>
+        <video id="myVideo" autoplay playInLine muted controlslist=['nodownload', 'nofullscreen', 'noremoteplaybacks']></video>
     </div>
     <canvas id="myCanvas"></canvas>
     <button id="myButton">Capture</button>
     <button id="againButton">Capture Again</button>
+    <div id="pxVideo"></div>
+    <div id="pxContainer"></div>
 
     <script type="text/javascript">
         document.getElementById("myButton").addEventListener("click", () => {
@@ -47,10 +60,20 @@
             myCav.height = videoEle.clientHeight
             myCav.style.display = 'block'
             const context = myCav.getContext('2d')
-            context.drawImage(videoEle, 0, 0, videoEle.videoWidth, videoEle.videoHeight)
+            const dw = videoEle.videoWidth / videoEle.clientWidth
+            const dh = videoEle.videoHeight / videoEle.clientHeight
+            if(dw > dh) {
+                context.drawImage(videoEle, 0, (videoEle.videoHeight - videoEle.clientHeight * dw)/2, videoEle.videoWidth, (videoEle.clientHeight * dw), 0, 0, 300, 225)
+            } else {
+                context.drawImage(videoEle, (videoEle.videoWidth - videoEle.clientWidth * dh)/2, 0, (videoEle.clientWidth * dh), videoEle.videoHeight, 0, 0, 300, 225)
+            }
             const dataUrl =  myCav.toDataURL()
             // console.log('base 64', dataUrl)
-            console.log(base64ToFile(dataUrl, 'test'))
+            // console.log(base64ToFile(dataUrl, 'test'))
+            const myPxVideo = document.getElementById('pxVideo')
+            const myPxContainer = document.getElementById('pxContainer')
+            myPxVideo.innerText = `video original width and height: ${videoEle.videoWidth}px ${videoEle.videoHeight}px`
+            myPxContainer.innerText = `video container width and height: ${videoEle.clientWidth}px ${videoEle.clientHeight}px`
         })
 
         document.getElementById("againButton").addEventListener("click", () => {
@@ -60,8 +83,8 @@
             myCav.style.display = 'none'
         })
          navigator.mediaDevices.getUserMedia({video: {
-            width:640,
-            height:480,
+            // width:640,
+            // height:480,
             facingMode: {ideal:"environment"},
          }}).then(stream => {
              console.log(stream)
